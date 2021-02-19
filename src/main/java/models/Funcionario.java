@@ -1,5 +1,7 @@
 package models;
 
+import org.hibernate.annotations.GenerationTime;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,10 +15,8 @@ public class Funcionario implements Serializable {
 	@Id
 	@GeneratedValue ( strategy = GenerationType.IDENTITY )
 	private Long id;
-	
-	@Column ( nullable=false, unique=true )
-	@GeneratedValue ( strategy = GenerationType.SEQUENCE, generator = "funcionario_matricula_seq")
-	@SequenceGenerator ( name = "funcionario_matricula_seq", sequenceName = "fm_seq")
+
+	@Column ( nullable=false, unique=true)
 	private Long matricula;
 	
 	@Column ( nullable=false, unique=true, length=11 )

@@ -55,6 +55,14 @@ public class Dependente implements Serializable {
 		this.nome = nome;
 	}
 
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
