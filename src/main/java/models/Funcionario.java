@@ -10,6 +10,10 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table ( name = "funcionarios" )
+@NamedQuery (
+		name = "Funcionario.Tudo",
+		query = "SELECT f FROM Funcionario f"
+)
 public class Funcionario implements Serializable {
 	
 	@Id
@@ -30,7 +34,7 @@ public class Funcionario implements Serializable {
 	@Size ( min = 10, max = 11 )
 	private String telefone;
 	
-	@OneToMany ( mappedBy = "funcionario" )
+	@OneToMany ( cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "funcionario" )
 	private List<Dependente> dependentes;
 	
 	public Long getId() {

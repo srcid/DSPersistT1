@@ -1,40 +1,51 @@
 package view;
 
-import dao.DependenteDAO;
 import dao.FuncionarioDAO;
-import models.Dependente;
 import models.Funcionario;
+
+import java.util.List;
 
 public class CLI {
 
 	public static void main(String[] args) {
+//		DependenteDAO ddao = new DependenteDAO();
+//		List<Object[]> res = ddao.beganWithNamedQuery("A");
+//		List<Object[]> res = ddao.beganWithJPQL("A");
+//		List<Object[]> res = ddao.beganWithNative("A");
+//		for (Object[] oArr : res) {
+//			System.out.println("Dep: " + (String) oArr[0] + "\n" +
+//						       "Res: " + (String) oArr[1]);
+//		}
+//		ddao.close();
 
 		FuncionarioDAO fdao = new FuncionarioDAO();
+//		List<Funcionario> res = fdao.fromFuncionariosNamed();
+//		List<Funcionario> res = fdao.fromFuncionariosCriteria();
+//		List<Funcionario> res = fdao.fromFuncionariosJPQL();
+//		for (Funcionario f : res) {
+//			System.out.println(
+//					"id: " + f.getId() + "\n" +
+//					"matricula: " + f.getMatricula() + "\n" +
+//					"cpf: " + f.getCpf() + "\n" +
+//					"nome: " + f.getNome() + "\n" +
+//					"telefone: " + f.getTelefone() + "\n" +
+//					"Dependenetes: ");
+//			f.getDependentes().forEach( dep -> System.out.print(dep.getNome() + "\n")
+//			);
+//		}
+
+// Operação que falha
+		fdao.beginTransaction();
 		Funcionario f = new Funcionario();
-		f = fdao.getById(new Long(1));
-		System.out.println(f.toString());
+		f.setCpf("64377264079");
+		f.setMatricula((long)44659);
+		f.setTelefone("69906079121");
+		f.setNome("Bildo Bolseiro");
 
-		DependenteDAO ddao = new DependenteDAO();
-		Dependente d = new Dependente();
-		d.setCpf("27547426034");
-		d.setNome("Bilbo Bolseiro da Silva");
-		d.setFuncionario(f);
-		ddao.beginTransaction();
-		ddao.insert(d);
-		ddao.commit();
-		ddao.close();
-
-//		FuncionarioDAO fdao = new FuncionarioDAO();
-//		Funcionario f = new Funcionario();
-//		f.setMatricula((long)3_154_564);
-//		f.setCpf("00000000000");
-//		f.setNome("Cicrano");
-//		f.setTelefone("11911111111");
-//		fdao.beginTransaction();
-//		fdao.insert(f);
-//		fdao.commit();
-//		fdao.close();
-//
+		try {
+			fdao.insert(f);
+		} catch (Exception e) {
+			fdao.rollback();
+		}
 	}
-
 }
